@@ -3,6 +3,10 @@ const fs = require('fs');
 const app = express()
 const cors = require('cors')
 const path = require('path');
+const bodyParser = require('body-parser');
+
+
+app.use(bodyParser.json()); // para json
 // app.get('/',(req,res) => {
 //     res.send('hello world')
 // })
@@ -18,9 +22,12 @@ app.get('/templates', (req,res) => {
 })
 
 app.post('/templates/view',(req,res) => {
-    res.sendFile('./templates/template1.html',{
-        root:__dirname
-    })
+    // res.sendFile('./templates/template1.html',{
+    //     root:__dirname
+    // })
+    const html = req.body.template;
+    res.setHeader('Content-Type', 'text/html');
+    res.send(html);
 })
 
 app.get('/templates/view/show', (req, res) => {
